@@ -63,6 +63,7 @@
     iwgtk                     # Lightweight, graphical wifi management utility
     scrcpy                    # connect phone
     qt5ct                     # Qt5 Configuration Tool
+    wezterm                   # Terminal
     # networkmanagerapplet
 
     ## rust/dependencies
