@@ -1,10 +1,14 @@
 #!/bin/sh
 
 file_or_dir_to_copy=(
-  "$HOME/.config/home-manager"
-  "/etc/nixos/"
+  # "$HOME/.config/home-manager"
+  # "/etc/nixos/"
+  # "$HOME/repo/nixos-config/home-manager"
+  # "$HOME/repo/nixos-config/nixos"
+  "nixos"
+  "home-manager"
 )
-destination="."
+destination="flakeLess-config"
 
 # ANSI escape sequences for text colors
 GREEN='\033[0;32m'  # File

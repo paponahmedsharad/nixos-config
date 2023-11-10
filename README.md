@@ -1,2 +1,2 @@
 # nixos-config
-NixOS Configuration
+Simple NixOS Configuration
