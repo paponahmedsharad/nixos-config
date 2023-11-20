@@ -25,9 +25,15 @@
     fzf                       # fuzzy finder
     ripgrep                   # Silver Searcher with the raw speed of grep
     diff-so-fancy             # fancy diffs ( for git )
+    delta                     # fancy git pager
     lazygit                   # Git helper
     fuzzel                    # Application launcher
     tofi                      # Application launcher
+    ueberzugpp
+    nnn
+    nushell
+    zoxide
+    unrar
     # rofi                      # Application launcher
     rofi-wayland              # rofi for wayland
     wofi                      # Application launcher
@@ -73,6 +79,7 @@
     # rustfmt                 # A tool for formatting Rust code
     # clippy                  # A collection of lints to catch common mistakes
 
+    go
     jdk
     luajit                    # High-performance JIT compiler for Lua (for neovim)
     typescript                # A superset of JavaScript that compiles to clean JavaScript output
@@ -86,17 +93,6 @@
     # (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
-
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    }))
-  ];
-
-  programs.neovim = {
-    enable = true;
-    package = pkgs.neovim-nightly;
-  };
 
   services.udiskie.enable = true;
 
