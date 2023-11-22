@@ -22,6 +22,7 @@
     lsd                       # "ls" alternative
     unzip                     # unzip zip files
     trash-cli                 # Put files in trash
+    unrar                     # extract rar file
     fzf                       # fuzzy finder
     ripgrep                   # Silver Searcher with the raw speed of grep
     diff-so-fancy             # fancy diffs ( for git )
@@ -29,12 +30,14 @@
     lazygit                   # Git helper
     fuzzel                    # Application launcher
     tofi                      # Application launcher
-    ueberzugpp
-    nnn
-    nushell
-    zoxide
-    unrar
-    # rofi                      # Application launcher
+    ranger                    # cli file manager
+    nnn                       # cli file manager
+    ueberzugpp                # image support for terminal
+    lsix                      # image support for terminal
+    nushell                   # another shell
+    zoxide                    # A fast cd command that learns your habits ( just put "zoxide init fish | source" inside fish config )
+    du-dust                   # Like du but more intuitive
+    # rofi                    # Application launcher
     rofi-wayland              # rofi for wayland
     wofi                      # Application launcher
     blueman                   # Blueman is a GTK+ Bluetooth Manager
