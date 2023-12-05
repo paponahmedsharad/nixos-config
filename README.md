@@ -1,14 +1,13 @@
 > **Note:** Follow/copy my guide/config at your own risk. I am not an expert.
 
- # NixOS with Flake and Home Manager
- - [Standalone Home-Manager Installation](#standalone-home-manager-installation)
- - [Enable Flake](#enable-flake)
+# NixOS with Flake and Home Manager
+- [Standalone Home-Manager Installation](#standalone-home-manager-installation)
+- [Enable Flake](#enable-flake)
 - [Usage](#usage)
 
 </br>
 
 ## Installation/Enable
-
 ### Standalone Home-Manager Installation
 Check nix-channel:
 ```sh
@@ -26,14 +25,11 @@ nix-shell '<home-manager>' -A install
 ```
 
 ⚠️  If  get any error, reboot your system and run the installation command `nix-shell '<home-manager>' -A install` again.
-
-
 >Official installation instructions can be found in the [HomeManager community docs](https://nix-community.github.io/home-manager/) or the [NixOS Wiki](https://nixos.wiki/wiki/Home_Manager).
 
 </br>
 
-### Enable Flake
----
+## Enable Flake
 Edit `/etc/nixos/configuration.nix` and add the following line:
 ```nix
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -74,6 +70,5 @@ home-manager switch --flake .
 
 
 ## TODO
-
 - [ ] Rewrite redme
 - [ ] Cleanup
