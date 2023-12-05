@@ -73,6 +73,8 @@
     scrcpy                    # connect phone
     qt5ct                     # Qt5 Configuration Tool
     wezterm                   # Terminal
+    freetube                  # youtube client
+    audacity                  # sound editor
     # networkmanagerapplet
 
     ## rust/dependencies
@@ -91,6 +93,10 @@
     # Neovim utility
     stylua                    # code formatter
     lua-language-server       #lsp
+
+    fcitx5-with-addons        # input method engine
+    fcitx5-openbangla-keyboard# keyboard
+
 
     # Fonts
     # (nerdfonts.override { fonts = [ "FiraCode" ]; })
@@ -132,6 +138,11 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage{{{
   # plain files is through 'home.file'.
   home.file = {
+    kitty = {
+        recursive = true;
+        source = ../dotfiles/kitty;
+        target = "./.config/kitty";
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
