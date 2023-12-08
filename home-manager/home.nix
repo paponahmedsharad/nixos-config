@@ -12,7 +12,7 @@
   # ╙──────────────────────────────────────────────────────────────────────────────╜
   home.packages = with pkgs; [
     ## Command line application
-    neovim                    # Text Editor
+    # neovim                    # Text Editor
     htop-vim                  # htop with vim keybind
     btop                      # A monitor of resources
     bat                       # fancy alternative for cat command
@@ -93,6 +93,7 @@
     # Neovim utility
     stylua                    # code formatter
     lua-language-server       #lsp
+    quick-lint-js
 
     fcitx5-with-addons        # input method engine
     fcitx5-openbangla-keyboard# keyboard
@@ -101,7 +102,11 @@
     # Fonts
     # (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
-
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
 
   services.udiskie.enable = true;
 
@@ -183,6 +188,14 @@
     };
   };
 
+  programs.neovim.plugins = [
+    pkgs.vimPlugins.nvim-tree-lua
+    {
+      plugin = pkgs.vimPlugins.markdown-preview-nvim;
+      # plugin = pkgs.vimPlugins.vim-startify;
+      # config = "let g:startify_change_to_vcs_root = 0";
+    }
+  ];
   programs.fish.shellAbbrs = {
     nixp = "nix-shell -p";
   };

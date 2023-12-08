@@ -1,4 +1,4 @@
-> **Note:** Follow/copy my guide/config at your own risk. I am not an expert.
+>⚠️ **Note:** Follow/copy my guide/config at your own risk. I am not an expert.
 
 # NixOS with Flake and Home Manager
 - [Standalone Home-Manager Installation](#standalone-home-manager-installation)
@@ -24,7 +24,7 @@ Once done, use the following command to install the home manager:
 nix-shell '<home-manager>' -A install
 ```
 
-⚠️  If  get any error, reboot your system and run the installation command `nix-shell '<home-manager>' -A install` again.
+If  get any error, reboot your system and run the installation command `nix-shell '<home-manager>' -A install` again.
 >Official installation instructions can be found in the [HomeManager community docs](https://nix-community.github.io/home-manager/) or the [NixOS Wiki](https://nixos.wiki/wiki/Home_Manager).
 
 </br>
