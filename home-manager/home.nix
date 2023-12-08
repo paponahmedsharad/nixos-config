@@ -85,8 +85,10 @@
     # rustfmt                 # A tool for formatting Rust code
     # clippy                  # A collection of lints to catch common mistakes
 
-    go
-    jdk
+
+    python3                   # python programing language
+    go                        # Go programing language
+    jdk                       # java programing language
     luajit                    # High-performance JIT compiler for Lua (for neovim)
     typescript                # A superset of JavaScript that compiles to clean JavaScript output
     bun                       # Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one
