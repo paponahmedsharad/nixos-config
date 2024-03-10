@@ -46,8 +46,8 @@
   services = {
     xserver = {
       enable = true;
-      layout = "us";
-      xkbVariant = "";
+      xkb.layout = "us";
+      xkb.variant = "";
       libinput.enable = true;                                   # Enable touchpad support (enabled default in most desktopManager).
       displayManager.gdm = { enable = true; wayland = true; };
       # desktopManager.gnome = { enable = true; };
