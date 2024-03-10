@@ -1,10 +1,102 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, pkgs-stable, ... }:
 
+let
+  openbangla-keyboard-overlay = final: prev: {
+    openbangla-keyboard = prev.fcitx5-openbangla-keyboard.overrideAttrs (old: {
+      version = "develop-2023-11-05";
+      src = final.fetchFromGitHub {
+        owner = "asifakonjee";
+        repo = "openbangla-keyboard";
+        rev = "73012424cfb4db310250836e63cd87ac84106c1b";
+        hash = "sha256-3moWzvuCD952sJGQct97k3Ls05S1ZavWhtH4LEdjUTI=";
+        fetchSubmodules = true;
+      };
+    });
+  };
+in
 {
   home.username = "sharad";
   home.homeDirectory = "/home/sharad";
   home.stateVersion = "23.05"; # This value determines the Home Manager release that your configuration is compatible with. This helps avoid breakage when a new Home Manager release introduces backwards incompatible changes. You should not change this value, even if you update Home Manager. If you do want to update the value, then make sure to first check the Home Manager release notes.
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = _: true;
+
+  imports = [
+    ./nvim.nix
+  ];
+
+
+
+  # Add the overlay to the list of overlays
+  nixpkgs.overlays = [ openbangla-keyboard-overlay ];
+
+  # Configure the input method
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [ openbangla-keyboard ];
+  };
+  # Neovim
+  # nixpkgs = {
+  #   overlays = [
+  #     (final: prev: {
+  #       vimPlugins = prev.vimPlugins // {
+  #         own-onedark-nvim = prev.vimUtils.buildVimPlugin {
+  #           name = "onedark";
+  #           src = inputs.plugin-onedark;
+  #         };
+  #       };
+  #     })
+  #   ];
+  # };
+
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     vimPlugins = prev.vimPlugins // {
+  #       own-onedark-nvim = prev.vimUtils.buildVimPlugin {
+  #         name = "onedark";
+  #         src = self.inputs.plugin-onedark;
+  #       };
+  #     };
+  #     stable = nixpkgs-stable.legacyPackages.${final.system};
+  #   })
+  # ];
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     vimPlugins = super.vimPlugins // {
+  #       onedark-nvim = super.vimUtils.buildVimPlugin {
+  #         name = "onedark";
+  #         src = inputs.plugin-onedark;
+  #       };
+  #     };
+  #     stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  #   })
+  # ];
+
+  # programs.neovim =
+  # let
+  #   toLua = str: "lua << EOF\n${str}\nEOF\n";
+  #   toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+  # in
+  # {
+  #   enable = true;
+  #   viAlias = true;
+  #   vimAlias = true;
+  #   vimdiffAlias = true;
+  #   extraPackages = with pkgs; [
+  #     lua-language-server
+  #     rnix-lsp
+  #     xclip
+  #   ];
+
+  #   plugins = with pkgs.vimPlugins; [
+  #     { plugin = onedark-nvim;
+  #     # config = "colorscheme onedark";
+  #     }
+  #     { plugin = markdown-preview-nvim;
+  #       # config = toLua "require(\"Comment\").setup()";
+  #     }
+  #   ];
+  # };
 
 
   # ╓──────────────────────────────────────────────────────────────────────────────╖
@@ -12,11 +104,11 @@
   # ╙──────────────────────────────────────────────────────────────────────────────╜
   home.packages = with pkgs; [
     ## Command line application
-    neovim                    # Text Editor
+    # neovim                    # Text Editor
     htop-vim                  # htop with vim keybind
-    tree                      # tree view of file/dir
+    pkgs-stable.tree                      # tree view of file/dir
     btop                      # A monitor of resources
-    bat                       # fancy alternative for cat command
+    bat                # fancy alternative for cat command
     fd                        # a program to find entries in filesystem
     starship                  # Prompt for fish/bash/zsh
     eza                       # "ls" alternative
@@ -56,7 +148,7 @@
     wezterm                   # Terminal
     nitch                     # system fetch
     neofetch                  # system fetch
-    # git                     # version control system
+    nix-prefetch              # Prefetch any fetcher function call, e.g. package sources
 
     ## Graphical application
     vlc                       # Video player
@@ -76,6 +168,7 @@
     freetube                  # youtube client
     audacity                  # sound editor
     # networkmanagerapplet
+    gnome.gnome-boxes
 
     ## rust/dependencies
     rustc                     # A safe, concurrent, practical language
@@ -94,11 +187,11 @@
     nodejs_20                 # Event-driven I/O framework for the V8 JavaScript engine
     # Neovim utility
     stylua                    # code formatter
-    lua-language-server       #lsp
+    # lua-language-server       #lsp
     quick-lint-js
 
-    fcitx5-with-addons        # input method engine
-    fcitx5-openbangla-keyboard# keyboard
+    # fcitx5-with-addons        # input method engine
+    # fcitx5-openbangla-keyboard# keyboard
 
 
     # Fonts
@@ -120,6 +213,7 @@
     gtk.enable = true;
   };
 
+  # Gtk configuration
   gtk = {
     enable = true;
     font = {
@@ -135,7 +229,11 @@
     theme = {
       package = (pkgs.catppuccin-gtk.override { accents = [ "peach" ]; size = "standard"; variant = "mocha"; });
       name = "Catppuccin-Mocha-Standard-Peach-Dark";
+
+      # package = pkgs.adw-gtk3;
+      # name = "adw-gtk3";
     };
+
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage{{{
