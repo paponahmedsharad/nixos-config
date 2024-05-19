@@ -1,19 +1,5 @@
 { config, pkgs, inputs, pkgs-stable, ... }:
 
-let
-  openbangla-keyboard-overlay = final: prev: {
-    openbangla-keyboard = prev.fcitx5-openbangla-keyboard.overrideAttrs (old: {
-      version = "develop-2023-11-05";
-      src = final.fetchFromGitHub {
-        owner = "asifakonjee";
-        repo = "openbangla-keyboard";
-        rev = "73012424cfb4db310250836e63cd87ac84106c1b";
-        hash = "sha256-3moWzvuCD952sJGQct97k3Ls05S1ZavWhtH4LEdjUTI=";
-        fetchSubmodules = true;
-      };
-    });
-  };
-in
 {
   home.username = "sharad";
   home.homeDirectory = "/home/sharad";
@@ -21,19 +7,19 @@ in
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = _: true;
 
-  imports = [
-    ./nvim.nix
-  ];
+  # imports = [
+    # ./nvim.nix
+  # ];
 
 
 
   # Add the overlay to the list of overlays
-  nixpkgs.overlays = [ openbangla-keyboard-overlay ];
+  # nixpkgs.overlays = [ openbangla-keyboard-overlay ];
 
   # Configure the input method
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addons = with pkgs; [ openbangla-keyboard ];
+    fcitx5.addons = with pkgs; [ fcitx5-openbangla-keyboard ];
   };
   # Neovim
   # nixpkgs = {
@@ -97,6 +83,17 @@ in
   #     }
   #   ];
   # };
+programs.neovim = {
+  enable = true;
+  # extraConfig = ''
+  #   set number relativenumber
+  # '';
+  #   extraPackages = with pkgs; [
+  #     lua-language-server
+  #     rnix-lsp
+  #     xclip
+  #   ];
+};
 
 
   # ╓──────────────────────────────────────────────────────────────────────────────╖
@@ -187,7 +184,9 @@ in
     nodejs_20                 # Event-driven I/O framework for the V8 JavaScript engine
     # Neovim utility
     stylua                    # code formatter
-    # lua-language-server       #lsp
+    lua-language-server       # lsp for lua file
+    # rnix-lsp                  # lsp for nix file
+    prettierd                 # formatter
     quick-lint-js
 
     # fcitx5-with-addons        # input method engine

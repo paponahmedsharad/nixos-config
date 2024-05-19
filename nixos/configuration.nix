@@ -51,7 +51,7 @@
       libinput.enable = true;                                   # Enable touchpad support (enabled default in most desktopManager).
       displayManager.gdm = { enable = true; wayland = true; };
       # desktopManager.gnome = { enable = true; };
-      desktopManager.xfce = { enable = true; };
+      # desktopManager.xfce = { enable = true; };
     };
     dbus.enable = true;                                         # Simple interprocess messaging system
     gnome.gnome-keyring.enable = true;                          # keyring (store secrets, passwords, keys, certificates and make them available to applications)

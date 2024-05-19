@@ -1,17 +1,18 @@
 { config, pkgs, inputs, ... }:
 
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      vimPlugins = super.vimPlugins // {
-        onedark-nvim = super.vimUtils.buildVimPlugin {
-          name = "onedark";
-          src = inputs.plugin-onedark;
-        };
-      };
-      # stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
-    })
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [ "nix-2.15.3" ];
+  # nixpkgs.overlays = [
+  #   (self: super: {
+  #     vimPlugins = super.vimPlugins // {
+  #       onedark-nvim = super.vimUtils.buildVimPlugin {
+  #         name = "onedark";
+  #         src = inputs.plugin-onedark;
+  #       };
+  #     };
+  #     # stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  #   })
+  # ];
   programs.neovim =
   let
     toLua = str: "lua << EOF\n${str}\nEOF\n";
@@ -21,7 +22,7 @@
     enable = true;
     # viAlias = true;
     # vimAlias = true;
-    vimdiffAlias = true;
+    # vimdiffAlias = true;
     extraPackages = with pkgs; [
       lua-language-server
       rnix-lsp
@@ -29,9 +30,9 @@
     ];
 
     plugins = with pkgs.vimPlugins; [
-      { plugin = onedark-nvim;
+      # { plugin = onedark-nvim;
       # config = "colorscheme onedark";
-      }
+      # }
       { plugin = markdown-preview-nvim;
         # config = toLua "require(\"Comment\").setup()";
       }
