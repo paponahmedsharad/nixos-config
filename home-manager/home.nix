@@ -153,7 +153,8 @@ programs.neovim = {
     libreoffice-fresh         # Office application
     neovide                   # graphical user interface for Neovim
     pcmanfm                   # file-manager
-    gimp                      # Photo Editor
+    # gimp                      # Photo Editor
+    gimp-with-plugins
     opera                     # browser
     microsoft-edge-dev        # browser
     whitesur-cursors          # An x-cursor theme
