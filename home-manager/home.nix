@@ -107,6 +107,7 @@ programs.neovim = {
     btop                      # A monitor of resources
     bat                # fancy alternative for cat command
     fd                        # a program to find entries in filesystem
+    skim                      # Command-line fuzzy finder written in Rust
     starship                  # Prompt for fish/bash/zsh
     eza                       # "ls" alternative
     lsd                       # "ls" alternative
