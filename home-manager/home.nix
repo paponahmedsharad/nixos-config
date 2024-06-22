@@ -154,7 +154,12 @@ programs.neovim = {
     neovide                   # graphical user interface for Neovim
     pcmanfm                   # file-manager
     # gimp                      # Photo Editor
-    gimp-with-plugins
+    # gimp-with-plugins
+    krita
+    davinci-resolve
+    # blackmagic-desktop-video
+    libsForQt5.kdenlive
+    # kdenlive
     opera                     # browser
     microsoft-edge-dev        # browser
     whitesur-cursors          # An x-cursor theme

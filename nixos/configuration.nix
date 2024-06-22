@@ -12,6 +12,16 @@
   hardware.enableRedistributableFirmware = true;              # Turn on this option if you want to enable all the firmware with a license allowing redistribution.
   nixpkgs.config.allowUnfree = true;                          # Allow unfree packages
   nix.settings.experimental-features = [ "nix-command" "flakes" ]; # Enable Flakes and the new command-line tool
+
+  # davinci-resolve
+  hardware.opengl = {
+      enable = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+          intel-compute-runtime
+      ];
+  };
+
   ## Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -44,32 +54,33 @@
   # ║ Services                                                           ║
   # ╙────────────────────────────────────────────────────────────────────╜
   services = {
+    libinput.enable = true;                                   # Enable touchpad support (enabled default in most desktopManager).
     xserver = {
       enable = true;
       xkb.layout = "us";
       xkb.variant = "";
-      libinput.enable = true;                                   # Enable touchpad support (enabled default in most desktopManager).
+      # libinput.enable = true;                                   # Enable touchpad support (enabled default in most desktopManager).
       displayManager.gdm = { enable = true; wayland = true; };
-      # desktopManager.gnome = { enable = true; };
+      desktopManager.gnome = { enable = true; };
       # desktopManager.xfce = { enable = true; };
     };
     dbus.enable = true;                                         # Simple interprocess messaging system
     gnome.gnome-keyring.enable = true;                          # keyring (store secrets, passwords, keys, certificates and make them available to applications)
     openssh.enable = true;                                      # Enable the OpenSSH daemon.
     printing.enable = true;
-    pipewire = {
-        enable = true;
-        alsa.enable = true;
-        alsa.support32Bit = true;
-        pulse.enable = true;
-        #jack.enable = true;                                   # If you want to use JACK applications, uncomment this
-      };
+    # pipewire = {
+    #     enable = true;
+    #     alsa.enable = true;
+    #     alsa.support32Bit = true;
+    #     pulse.enable = true;
+    #     jack.enable = true;                                   # If you want to use JACK applications, uncomment this
+    #   };
   };
   # Flatpak
   services.flatpak.enable = true;
   ## Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
 
   ## Define a user account. Don't forget to set a password with ‘passwd’.
@@ -156,7 +167,7 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
+      # xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
       # xdg-desktop-portal
     ];
