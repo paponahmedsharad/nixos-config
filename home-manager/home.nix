@@ -12,77 +12,14 @@
   # ];
 
 
-
-  # Add the overlay to the list of overlays
-  # nixpkgs.overlays = [ openbangla-keyboard-overlay ];
-
   # Configure the input method
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [ fcitx5-openbangla-keyboard ];
   };
-  # Neovim
-  # nixpkgs = {
-  #   overlays = [
-  #     (final: prev: {
-  #       vimPlugins = prev.vimPlugins // {
-  #         own-onedark-nvim = prev.vimUtils.buildVimPlugin {
-  #           name = "onedark";
-  #           src = inputs.plugin-onedark;
-  #         };
-  #       };
-  #     })
-  #   ];
-  # };
 
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     vimPlugins = prev.vimPlugins // {
-  #       own-onedark-nvim = prev.vimUtils.buildVimPlugin {
-  #         name = "onedark";
-  #         src = self.inputs.plugin-onedark;
-  #       };
-  #     };
-  #     stable = nixpkgs-stable.legacyPackages.${final.system};
-  #   })
-  # ];
-  # nixpkgs.overlays = [
-  #   (self: super: {
-  #     vimPlugins = super.vimPlugins // {
-  #       onedark-nvim = super.vimUtils.buildVimPlugin {
-  #         name = "onedark";
-  #         src = inputs.plugin-onedark;
-  #       };
-  #     };
-  #     stable = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
-  #   })
-  # ];
 
-  # programs.neovim =
-  # let
-  #   toLua = str: "lua << EOF\n${str}\nEOF\n";
-  #   toLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
-  # in
-  # {
-  #   enable = true;
-  #   viAlias = true;
-  #   vimAlias = true;
-  #   vimdiffAlias = true;
-  #   extraPackages = with pkgs; [
-  #     lua-language-server
-  #     rnix-lsp
-  #     xclip
-  #   ];
 
-  #   plugins = with pkgs.vimPlugins; [
-  #     { plugin = onedark-nvim;
-  #     # config = "colorscheme onedark";
-  #     }
-  #     { plugin = markdown-preview-nvim;
-  #       # config = toLua "require(\"Comment\").setup()";
-  #     }
-  #   ];
-  # };
 programs.neovim = {
   enable = true;
   # extraConfig = ''
@@ -100,21 +37,21 @@ programs.neovim = {
   # ║                                P A C K A G E                                 ║
   # ╙──────────────────────────────────────────────────────────────────────────────╜
   home.packages = with pkgs; [
-    ## Command line application
-    # neovim                    # Text Editor
+    ## C L I  tools
     htop-vim                  # htop with vim keybind
-    pkgs-stable.tree                      # tree view of file/dir
     btop                      # A monitor of resources
-    bat                # fancy alternative for cat command
+    bat                       # fancy alternative for cat command
+    pkgs-stable.tree          # tree view of file/dir
+    du-dust                   # Like du(check file size) but more intuitive($dust)
     fd                        # a program to find entries in filesystem
     skim                      # Command-line fuzzy finder written in Rust
+    fzf                       # fuzzy finder
     starship                  # Prompt for fish/bash/zsh
     eza                       # "ls" alternative
     lsd                       # "ls" alternative
     unzip                     # unzip zip files
     trash-cli                 # Put files in trash
     unrar                     # extract rar file
-    fzf                       # fuzzy finder
     ripgrep                   # Silver Searcher with the raw speed of grep
     diff-so-fancy             # fancy diffs ( for git )
     delta                     # fancy git pager
@@ -127,7 +64,6 @@ programs.neovim = {
     lsix                      # image support for terminal
     nushell                   # another shell
     zoxide                    # A fast cd command that learns your habits ( just put "zoxide init fish | source" inside fish config )
-    du-dust                   # Like du but more intuitive
     # rofi                    # Application launcher
     rofi-wayland              # rofi for wayland
     wofi                      # Application launcher
@@ -148,40 +84,41 @@ programs.neovim = {
     neofetch                  # system fetch
     nix-prefetch              # Prefetch any fetcher function call, e.g. package sources
 
+
     ## Graphical application
+    microsoft-edge-dev        # browser
     vlc                       # Video player
     libreoffice-fresh         # Office application
     neovide                   # graphical user interface for Neovim
     pcmanfm                   # file-manager
-    # gimp                      # Photo Editor
-    # gimp-with-plugins
-    krita
-    davinci-resolve
-    # blackmagic-desktop-video
+    krita                     # art
+    davinci-resolve           # Video Editor
     libsForQt5.kdenlive
+    # gimp                    # Photo Editor
+    # gimp-with-plugins       # Photo Editor
     # kdenlive
-    opera                     # browser
-    microsoft-edge-dev        # browser
+    freetube                  # youtube client
+    audacity                  # sound editor
+    scrcpy                    # connect phone
+    gnome.gnome-boxes         # for virtual machine
+    iwgtk                     # Lightweight, graphical wifi management utility
+    # networkmanagerapplet
+
+
+    ## Icon/Theme
     whitesur-cursors          # An x-cursor theme
     capitaine-cursors         # cursor
     tela-circle-icon-theme    # Icon
     beauty-line-icon-theme    # Icon
-    iwgtk                     # Lightweight, graphical wifi management utility
-    scrcpy                    # connect phone
     qt5ct                     # Qt5 Configuration Tool
-    freetube                  # youtube client
-    audacity                  # sound editor
-    # networkmanagerapplet
-    gnome.gnome-boxes
 
-    ## rust/dependencies
+
+    ## JS/Phyton/Rust/dependencies
     rustc                     # A safe, concurrent, practical language
     cargo                     # Download Rust project's dependencies and builds project
     # rust-analyzer           # compiler frontend for the Rust language
     # rustfmt                 # A tool for formatting Rust code
     # clippy                  # A collection of lints to catch common mistakes
-
-
     python3                   # python programing language
     go                        # Go programing language
     jdk                       # java programing language
@@ -189,6 +126,8 @@ programs.neovim = {
     typescript                # A superset of JavaScript that compiles to clean JavaScript output
     bun                       # Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one
     nodejs_20                 # Event-driven I/O framework for the V8 JavaScript engine
+
+
     # Neovim utility
     stylua                    # code formatter
     lua-language-server       # lsp for lua file
@@ -196,16 +135,19 @@ programs.neovim = {
     prettierd                 # formatter
     quick-lint-js
 
-    # fcitx5-with-addons        # input method engine
-    # fcitx5-openbangla-keyboard# keyboard
-
 
     # Fonts
     # (nerdfonts.override { fonts = [ "FiraCode" ]; })
   ];
 
 
+
+  # ╓──────────────────────────────────────────────────────────────────────────────╖
+  # ║                               S E R V I C E S                                ║
+  # ╙──────────────────────────────────────────────────────────────────────────────╜
   services.udiskie.enable = true;
+
+
 
   # ╓──────────────────────────────────────────────────────────────────────────────╖
   # ║                                 C O N F I G                                  ║
@@ -242,33 +184,25 @@ programs.neovim = {
 
   };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage{{{
-  # plain files is through 'home.file'.
-  home.file = {
-    kitty = {
-        recursive = true;
-        source = ../dotfiles/kitty;
-        target = "./.config/kitty";
-    };
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+
+# ╭────────────────────────────────────────────────────────────────────╮
+# │                         managing dotfiles                          │
+# ╰────────────────────────────────────────────────────────────────────╯
+  home.file = {
+    # kitty = {
+    #     recursive = true;
+    #     source = ../dotfiles/kitty;
+    #     target = "./.config/kitty";
+    # };
+
+    # # Building this configuration will create a copy of 'dotfiles/screenrc' in the Nix store. Activating the configuration will then make '~/.screenrc' a symlink to the Nix store copy.
+    # ".screenrc".source = dotfiles/screenrc;
   };
 
-  # You can also manage environment variables but you will have to manually
-  # source
-  #
+  # You can also manage environment variables but you will have to manually source
   #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
   # or
-  #
   #  /etc/profiles/per-user/sharad/etc/profile.d/hm-session-vars.sh
   #
   # if you don't want to manage your shell through Home Manager.
@@ -294,7 +228,8 @@ programs.neovim = {
     nixp = "nix-shell -p";
   };
 
+
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-#}}}
